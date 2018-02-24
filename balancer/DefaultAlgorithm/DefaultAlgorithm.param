@@ -1,0 +1,18 @@
+[Verbose]
+Type=boolean
+Category=Options
+CategoryOrder=0
+Index=0
+Label=Verbose Logging
+Default=true
+Description=Whether or not Verbose logging is enabled.
+
+[PreJobTaskMode]
+Type=enum
+Values=Conservative;Ignore;Normal;
+Category=Options
+CategoryOrder=0
+Index=1
+Label=Pre Job Task Mode
+Default=Conservative
+Description=How the Balancer handles Pre Job Tasks. Conservative will only start 1 instance for the pre job task and ignore any other tasks for that job. Ignore will not take the pre job task into account when calculating targets. Normal will treat the pre job task like a regular job task.

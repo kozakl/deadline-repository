@@ -1,0 +1,14 @@
+.idea/
+backup/
+bin/
+cloud/
+draft/
+jobs/
+jobsArchived/
+maxStartup/
+plugins/
+pythonsync/
+reports/
+settings/
+submission/
+*.pyc

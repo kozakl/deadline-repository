@@ -1,0 +1,83 @@
+[State]
+Type=Enum
+Items=Global Enabled;Disabled
+Category=Configuration
+CategoryOrder=0
+Index=0
+Label=State
+Default=Disabled
+Description=How this event plug-in should respond to events. If Global, all jobs and slaves will trigger the events for this plugin. If Opt-In, jobs and slaves can choose to trigger the events for this plugin. If Disabled, no events are triggered for this plugin.
+
+[NimURL]
+Type=string
+Category=Configuration
+CategoryOrder=0
+Index=1
+Label=NIM URL
+Default=http://hostname/nimAPI.php?
+Description=The URL to access NIM (Use hostname or ip address).
+
+[NimAPIKey]
+Type=string
+Category=Configuration
+CategoryOrder=0
+Index=2
+Label=NIM API Key
+Default=
+Description=The Render API key which is located in NIM under Security > OPTIONS > RENDER API KEY:
+
+[AutoConnect]
+Type=boolean
+Category=Options
+CategoryOrder=1
+Index=0
+Label=Auto Connect to NIM
+Description=Whether or not to connect to NIM when the pipeline tools dialog finishes loading.
+DisableIfBlank=false
+Default=true
+
+[ThumbnailFrame]
+Type=enum
+Category=Options
+CategoryOrder=1
+Index=1
+Label=Thumbnail Frame
+Description=The frame to upload to NIM as a Thumbnail.
+Required=true
+DisableIfBlank=false
+Values=None;First Frame;Middle Frame;Last Frame
+Default=Middle Frame
+
+[EnableThumbnailConversion]
+Type=boolean
+Category=Options
+CategoryOrder=1
+Index=2
+Label=Convert Thumbnails with Draft
+Description=Whether or not to convert the frames to a different format before uploading them to NIM (requires Draft).
+Required=true
+DisableIfBlank=false
+Default=false
+
+[ConvertedThumbnailFormat]
+Type=enum
+Category=Options
+CategoryOrder=1
+Index=3
+Label=Thumbnail Conversion Format
+Description=The format to which Draft will convert the Thumbnail before uploading it.
+Required=true
+DisableIfBlank=false
+Values=JPG;PNG
+Default=JPG
+
+[NIMDraftTemplate]
+Type=filename
+Category=NIM Draft Template
+CategoryOrder=2
+CategoryIndex=0
+Label=Draft Template
+Description=The default Draft template to use with NIM.
+Required=false
+DisableIfBlank=false
+Default=

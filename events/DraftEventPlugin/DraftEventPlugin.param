@@ -1,0 +1,88 @@
+[State]
+Type=Enum
+Items=Global Enabled;Opt-In;Disabled
+Category=Options
+CategoryOrder=0
+Index=0
+Label=State
+Default=Global Enabled
+Description=How this event plug-in should respond to events. If Global, all jobs and slaves will trigger the events for this plugin. If Opt-In, jobs and slaves can choose to trigger the events for this plugin. If Disabled, no events are triggered for this plugin.
+
+[DraftPool]
+Type=string
+Category=Options
+CategoryOrder=0
+Index=1
+Label=Draft Pool
+Default=
+Description=The Pool to which the Draft jobs will be submitted.  If blank, the original job's Pool will be re-used.
+
+[DraftGroup]
+Type=string
+Category=Options
+CategoryOrder=0
+Index=2
+Label=Draft Group
+Default=
+Description=The Group to which the Draft jobs will be submitted.  If blank, the original job's Group will be re-used.
+
+[DraftLimit]
+Type=string
+Category=Options
+CategoryOrder=0
+Index=3
+Label=Draft Limit
+Default=
+Description=The Limit to which the Draft jobs will be submitted.  If blank, no Limit will be used.
+
+[PriorityOffset]
+Type=integer
+Minimum=-100
+Maximum=100
+Increment=1
+Category=Options
+CategoryOrder=0
+Index=4
+Label=Priority Offset
+Default=0
+Description=This offset will be added to the original job's priority, in order to determine the Draft job's priority.
+
+[OutputFolder]
+Type=string
+Category=Options
+CategoryOrder=0
+Index=5
+Label=Draft Output Folder
+Default=Draft
+Description=The folder in which to put the Draft output, relative to the Draft input folder.
+
+[EnableDistributedJob]
+Type=boolean
+Category=Distributed Job
+CategoryOrder=1
+Index=0
+Label=Enable Distributed Job
+Default=false
+Description=If enabled, a distributed job will be created if the minimum number of frames requirement is met.
+
+[ChunkSize]
+Type=integer
+Minimum=1
+Increment=1
+Category=Distributed Job
+CategoryOrder=1
+Index=1
+Label=Number Of Frames Per Task
+Default=200
+Description=The number of frames, or chunk size, to be assigned to each task. The minimum number of frames in total required for a distributed job is equal to 5 chunk sizes.
+
+[MachineLimit]
+Type=integer
+Minimum=0
+Increment=1
+Category=Distributed Job
+CategoryOrder=1
+Index=2
+Label=Machine Limit
+Default=5
+Description=The maximum number of machines that can process a distributed job at one time. Specify 0 for no limit.

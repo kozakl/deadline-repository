@@ -1,0 +1,83 @@
+[State]
+Type=Enum
+Items=Global Enabled;Opt-In;Disabled
+Category=Options
+CategoryOrder=0
+CategoryIndex=0
+Label=State
+Default=Disabled
+Description=How this event plug-in should respond to events. If Global, all jobs and slaves will trigger the events for this plugin. If Opt-In, jobs and slaves can choose to trigger the events for this plugin. If Disabled, no events are triggered for this plugin.
+
+[SyncEvent]
+Type=enum
+Values=On Slave Startup;On Slave Job Started
+Category=Options
+CategoryOrder=0
+Index=1
+Default=On Slave Job Started
+Label=Perform Font Synchronization
+Description=If the event plugin should synchronize fonts when a slave starts up, or before each job it renders.
+
+[FontFolderNetworkMacOSX]
+Type=folder
+Label=Network Mac OSX Font Folder
+Category=Mac OSX Font Synchronization
+CategoryOrder=1
+Index=0
+Default=
+Description=The network Mac OSX Font folder used for synchronization.
+
+[FontFolderMacOSX]
+Type=multilinemultifolder
+Label=Local Mac OSX Font Folder
+Category=Mac OSX Font Synchronization
+CategoryOrder=1
+Index=1
+Default=/Library/Fonts
+Description=The local Mac OSX Font folder to synchronize with the network Font folder. Enter alternative paths on separate lines.
+
+[FontFolderNetworkWindows]
+Type=folder
+Label=Network Windows Font Folder
+Category=Windows Font Synchronization
+CategoryOrder=2
+Index=0
+Default=
+Description=The network Windows Font folder used for synchronization.
+
+[UseTempFontFolderWindows]
+Type=boolean
+Category=Windows Font Synchronization
+CategoryOrder=2
+Index=1
+Label=Use User's Temp Folder as Font Folder
+Default=true
+Description=If enabled, the fonts will be copied to a DeadlineFonts folder in the current user's TEMP folder. Using this option avoids having to create a font folder on each machine, and avoids permission issues.
+
+[FontFolderWindows]
+Type=multilinemultifolder
+Label=Local Windows Font Folder
+Category=Windows Font Synchronization
+CategoryOrder=2
+Index=2
+Default=C:\WINDOWS\Temp
+Description=The local Windows Font folder to synchronize with the network Font folder. Enter alternative paths on separate lines. This is ignored if Use User's Temp Folder as Font Folder is enabled.
+
+[FontSyncTimeout]
+Type=Integer
+Label=Timeout For Font Registration (ms)
+Category=Windows Font Synchronization
+CategoryOrder=2
+Index=3
+Minimum=1000
+Description=The amount of milliseconds the event plugin will wait before timing out per font when registering fonts.
+Default=1000
+
+[SkipExisting]
+Type=boolean
+Category=Windows Font Synchronization
+CategoryOrder=2
+Index=4
+Default=False
+Label=Skip Existing Fonts
+Description=If enabled, only fonts that do not exist on the machine are copied over. This can improve performance, but if an existing font is modified in the network folder, it will not by synchronized to the machine.

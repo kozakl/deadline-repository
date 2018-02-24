@@ -1,0 +1,73 @@
+[State]
+Type=Enum
+Items=Global Enabled;Disabled
+Category=Options
+CategoryOrder=0
+Index=0
+Label=State
+Default=Disabled
+Description=How this event plug-in should respond to events. If Global, all jobs and Slaves will trigger the events for this plugin. If Disabled, no events are triggered for this plugin.
+
+[AccessID]
+Type=string
+Category=Login
+CategoryOrder=1
+Index=0
+Label=Access Key ID
+Default=
+Description=Your EC2 Access Key ID. This can be found in the IAM Management Console under the Security Credentials of your EC2 account.
+
+[SecretKey]
+Type=password
+Category=Login
+CategoryOrder=1
+Index=1
+Label=Secret Access Key
+Default=
+Description=Your EC2 Secret Access Key. This can be found in the IAM Management Console under the Security Credentials of your EC2 account.
+
+[Region]
+Type=enum
+Category=Configuration
+CategoryOrder=2
+Index=0
+Label=Region
+Values=us-east-1;us-east-2;us-west-1;us-west-2;eu-central-1;eu-west-1;eu-west-2;eu-west-3;ap-northeast-1;ap-northeast-2;ap-southeast-1;ap-southeast-2;ap-south-1;sa-east-1;cn-north-1;cn-northwest-1;ca-central-1
+Default=us-west-2
+Description=The AWS region in which to start the spot fleet requests.
+
+[Config]
+Type=MultiLineString
+Category=Configuration
+CategoryOrder=2
+Index=1
+Label=Spot Fleet Request Configurations
+Default={}
+Description=<html><head/><body><p>A mapping between your Groups and Spot Fleet Requests. One request per group formatted as so: { "group_name":{spot_fleet_request}, "2nd_group_name":{spot_fleet_request} }. Spot Fleet Requests are Json formatted and can be downloaded from the AWS console.</p></body></html>
+
+[IdleShutdown]
+Type=integer
+Category=Configuration
+CategoryOrder=2
+Index=2
+Label=Idle Shutdown
+Default=10
+Description=Number of minutes that a AWS Slave will wait in a non-rendering state before it is shutdown.
+
+[DeleteTerminatedSlaves]
+Type=boolean
+Category=Configuration
+CategoryOrder=2
+Index=3
+Label=Delete Terminated Slaves
+Default=False
+Description=<html><head/><body><p>If enabled, terminated AWS Slaves will be deleted from the Slaves Panel on the next House Cleaning cycle. Warning: The terminated Slave's reports will also be deleted for each Slave, which may be undesired for future debugging a render job issue. Default: False.</p></body></html>
+
+[StrictHardCap]
+Type=boolean
+Category=Configuration
+CategoryOrder=2
+Index=4
+Label=Strict Hard Cap
+Default=False
+Description=<html><head/><body><p>If enabled, any active instances greater than the target capacity for each group will be terminated. Slaves may be terminated even while rendering. Default: False.</p></body></html>
