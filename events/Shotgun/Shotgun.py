@@ -210,9 +210,78 @@ class ShotgunEventListener( DeadlineEventListener ):
     
     ## This is called when the job finishes rendering.
     def OnJobFinished( self, job ):
-        #make sure we have the latest job info
-        job = RepositoryUtils.GetJob( job.ID, True )
+        import json
+        import os
 
+        if job.JobExtraInfo5 != "" and job.GetJobExtraInfoKeyValue("TaskId") != "":
+            try:
+                job = RepositoryUtils.GetJob(job.ID, True)
+                userName = job.JobExtraInfo5
+                taskId = int(job.GetJobExtraInfoKeyValue("TaskId"))
+                projectId = int(job.GetJobExtraInfoKeyValue("ProjectId"))
+                entityId = int(job.GetJobExtraInfoKeyValue("EntityId"))
+                entityType = job.GetJobExtraInfoKeyValue("EntityType")
+                version = re.sub('(?i)\$\{jobid\}', job.JobId,
+                                 job.JobExtraInfo3)  # swap out the placeholder for the job ID
+                version = re.sub('(?i)\$\{jobname\}', job.JobName, version)  # swap out the placeholder for the job Name
+                description = " (" + job.JobId + ")"
+                if job.JobExtraInfo4 != "":
+                    description = re.sub('(?i)\$\{jobid\}', job.JobId,
+                                         job.JobExtraInfo4)  # swap out the placeholder for the job ID
+
+                frames = job.JobFramesList
+
+                frameRangeOverride = job.GetJobExtraInfoKeyValue("FrameRangeOverride")
+                if not frameRangeOverride == "" and FrameUtils.FrameRangeValid(frameRangeOverride):
+                    frameString = frameRangeOverride
+                    inputFrameList = frameRangeOverride
+                    frames = FrameUtils.Parse(inputFrameList)
+
+                frameCount = len(frames)
+
+                frames = FrameUtils.ToFrameString(frames)
+
+                outputPath = ""
+                if len(job.JobOutputDirectories) > 0:
+                    if len(job.JobOutputFileNames) > 0:
+                        outputPath = Path.Combine(job.JobOutputDirectories[0], job.JobOutputFileNames[0])
+                    else:
+                        outputPath = job.JobOutputDirectories[0]
+
+                # Use ShotgunUtils to replace padding in output path.
+                import ShotgunUtils
+                framePaddingCharacter = self.GetConfigEntryWithDefault("FramePaddingCharacter", "#")
+                outputPath = ShotgunUtils.ReplacePadding(outputPath, framePaddingCharacter)
+
+                self.LogInfo('Shotgun Job, correct get data')
+            except Exception:
+                self.LogInfo('An error occurred while retrieving Shotgun info from the submitted Job')
+                self.LogInfo(traceback.format_exc())
+                raise
+#userName, taskId, projectId, entityId, entityType, version, description, frames, frameCount, outputPath, shotgunPath, job.JobId
+            try:
+                with open(os.path.join('S:/jobs', job.ID), 'w') as jobData:
+                    json.dump({
+                        'userName': userName,
+                        'taskId': taskId,
+                        'projectId': projectId,
+                        'entityId': entityId,
+                        'entityType': entityType,
+                        'version': version,
+                        'description': description,
+                        'frames': frames,
+                        'frameCount': frameCount,
+                        'outputPath': outputPath,
+                        'id': job.JobId,
+                        'movie': 'W:\\0000_sg_development\\render\Draft\shotgun_h264.mov'
+                    }, jobData)
+
+                self.LogInfo('Job has been created')
+            except Exception:
+                self.LogInfo('Job has been NOT created')
+                raise
+
+        return
         # Only do stuff if this job is tied to Shotgun
         if job.JobExtraInfo5 != "" and job.GetJobExtraInfoKeyValue( "TaskId" ) != "":
             self.LogInfo( "Found Shotgun Version info")
