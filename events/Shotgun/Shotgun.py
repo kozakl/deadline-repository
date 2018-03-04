@@ -212,6 +212,7 @@ class ShotgunEventListener( DeadlineEventListener ):
     def OnJobFinished( self, job ):
         import json
         import os
+        from datetime import datetime
 
         if job.JobExtraInfo5 != "" and job.GetJobExtraInfoKeyValue("TaskId") != "":
             try:
@@ -273,7 +274,8 @@ class ShotgunEventListener( DeadlineEventListener ):
                         'frameCount': frameCount,
                         'outputPath': outputPath,
                         'id': job.JobId,
-                        'movie': 'W:\\0000_sg_development\\render\Draft\shotgun_h264.mov'
+                        'movie': 'W:\\0000_sg_development\\render\Draft\shotgun_h264.mov',
+                        'date': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
                     }, jobData)
 
                 self.LogInfo('Job has been created')
