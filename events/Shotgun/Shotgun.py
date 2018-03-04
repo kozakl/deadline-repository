@@ -275,7 +275,7 @@ class ShotgunEventListener( DeadlineEventListener ):
                         'outputPath': outputPath,
                         'id': job.JobId,
                         'movie': 'W:\\0000_sg_development\\render\Draft\shotgun_h264.mov',
-                        'date': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                        'date': datetime.now().strftime('%Y-%m-%d %H:%M')
                     }, jobData)
 
                 self.LogInfo('Job has been created')
