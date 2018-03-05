@@ -213,6 +213,7 @@ class ShotgunEventListener( DeadlineEventListener ):
         import json
         import os
         from datetime import datetime
+        from os import path
 
         if job.JobExtraInfo5 != "" and job.GetJobExtraInfoKeyValue("TaskId") != "":
             try:
@@ -254,6 +255,13 @@ class ShotgunEventListener( DeadlineEventListener ):
                 framePaddingCharacter = self.GetConfigEntryWithDefault("FramePaddingCharacter", "#")
                 outputPath = ShotgunUtils.ReplacePadding(outputPath, framePaddingCharacter)
 
+                createShotgunMovie = job.GetJobExtraInfoKeyValueWithDefault('Draft_CreateSGMovie', 'false').lower() != 'false'
+                movie = ''
+                if createShotgunMovie:
+                    movie = path.join(job.JobOutputDirectories[0], 'Draft', 'shotgun_h264.mov')
+                else:
+                    movie = path.join(job.JobOutputDirectories[0], 'Draft', job.JobOutputFileNames[0].split('.')[0] + '.mov')
+
                 self.LogInfo('Shotgun Job, correct get data')
             except Exception:
                 self.LogInfo('An error occurred while retrieving Shotgun info from the submitted Job')
@@ -274,7 +282,7 @@ class ShotgunEventListener( DeadlineEventListener ):
                         'frameCount': frameCount,
                         'outputPath': outputPath,
                         'id': job.JobId,
-                        'movie': 'W:\\0000_sg_development\\render\Draft\shotgun_h264.mov',
+                        'movie': movie,
                         'date': datetime.now().strftime('%Y-%m-%d %H:%M')
                     }, jobData)
 
