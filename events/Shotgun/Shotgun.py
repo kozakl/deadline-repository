@@ -256,7 +256,6 @@ class ShotgunEventListener( DeadlineEventListener ):
                 outputPath = ShotgunUtils.ReplacePadding(outputPath, framePaddingCharacter)
 
                 createShotgunMovie = job.GetJobExtraInfoKeyValueWithDefault('Draft_CreateSGMovie', 'false').lower() != 'false'
-                movie = ''
                 if createShotgunMovie:
                     movie = path.join(job.JobOutputDirectories[0], 'Draft', 'shotgun_h264.mov')
                 else:
@@ -267,7 +266,7 @@ class ShotgunEventListener( DeadlineEventListener ):
                 self.LogInfo('An error occurred while retrieving Shotgun info from the submitted Job')
                 self.LogInfo(traceback.format_exc())
                 raise
-#userName, taskId, projectId, entityId, entityType, version, description, frames, frameCount, outputPath, shotgunPath, job.JobId
+
             try:
                 with open(os.path.join('S:/jobs', job.ID), 'w') as jobData:
                     json.dump({
