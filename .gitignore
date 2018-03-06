@@ -1,4 +1,7 @@
-.idea/
+# Compiled
+*.pyc
+
+# Deadline
 backup/
 bin/
 cloud/
@@ -11,4 +14,10 @@ pythonsync/
 reports/
 settings/
 submission/
-*.pyc
+
+# Environments
+venv/
+
+# Others
+.idea/
+TODO.txt
